@@ -1,4 +1,5 @@
 import NP from 'number-precision';
+import { GRID_KEY, GRID_MAX } from '../../config/index';
 
 // 获取应用实例
 const app = getApp<IAppOption>()
@@ -77,6 +78,10 @@ Page({
     outBorder: true,
     tableData: [],
     buyMethod: 'price',
+    // 控制收藏对话框的显示
+    showCollectDialog: false,
+    // 收藏的网格名
+    collectName: '',
   },
   static: {
     baseBuyTriggerPrice: 0,
@@ -219,6 +224,70 @@ Page({
 
     this.setData({
       buyMethod: value,
+    });
+  },
+  /**
+   * 显示收藏对话框
+   */
+  showCollectDialogHandle() {
+    this.setData({
+      showCollectDialog: true,
+    });
+  },
+  /**
+   * 隐藏收藏对话框
+   */
+  hideCollectDialogHandle() {
+    this.setData({
+      showCollectDialog: false,
+    });
+  },
+  onCollectNameChange(e: WechatMiniprogram.CustomEvent) {
+    const { value } = e.detail;
+
+    this.setData({
+      collectName: value,
+    });
+  },
+  /**
+   * 收藏网格
+   */
+  onCollect() {
+    const { collectName, tableData } = this.data;
+    if(!collectName) return;
+
+    try{
+      const gridList = wx.getStorageSync(GRID_KEY) || [];
+
+      if (gridList.length > GRID_MAX){
+        wx.showToast({
+          title: '收藏夹已满，请删减',
+          icon: 'none'
+        });
+        return;
+      }
+
+      gridList.push({
+        collectName,
+        tableData,
+      });
+
+      wx.setStorageSync(GRID_KEY, gridList);
+      wx.showToast({
+        title: '收藏成功',
+        icon: 'success',
+      });
+      this.hideCollectDialogHandle();
+    }catch(e) {
+      wx.showToast({
+        title: '收藏失败',
+        icon: 'error',
+      });
+    }
+  },
+  goToCollectPage() {
+    wx.navigateTo({
+      url: '/pages/collect-center/index',
     });
   }
 })

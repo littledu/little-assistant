@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/collect-center/index",
+    "pages/collect-detail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

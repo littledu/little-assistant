@@ -1,21 +1,22 @@
 <!--index.wxml-->
 <view class="container">
   <form catchsubmit="onGenerate">
-    <t-input label="生成多少网" placeholder="请输入" name="depth" type="number"></t-input>
-    <t-input label="首网触发价" placeholder="请输入" name="baseBuyTriggerPrice" type="number"></t-input>
+    <t-input label="生成多少网" placeholder="请输入" name="depth" type="digit"></t-input>
+    <t-input label="首网触发价" placeholder="请输入" name="baseBuyTriggerPrice" type="digit"></t-input>
     <!-- <t-radio-group default-value="price" borderless t-class="box" bindchange="onBuyMethodChange">
       <t-radio block="{{false}}" label="按金额买入" value="price" />
       <t-radio block="{{false}}" label="按股数买入" value="number" />
     </t-radio-group> -->
 
     <t-input label="{{buyMethod === 'price' ? '买入金额' : '买入股数'}}" placeholder="请输入" name="buyTotal" type="number"></t-input>
-    <t-input label="留利润" placeholder="请输入" name="profit" type="number" suffix="份"></t-input>
+    <t-input label="留利润" placeholder="请输入" name="profit" type="digit" suffix="份"></t-input>
 
     <view class="wrap-button">
       <t-button theme="primary" size="large" block type="submit">生成</t-button>
     </view>
   </form>
   <view wx:if="{{tableData && tableData.length}}">
+    <t-button theme="primary" size="medium" variant="text" bindtap="showCollectDialogHandle">收藏网格</t-button>
     <table
       headers="{{tableHeader}}" 
       data="{{tableData}}" 
@@ -23,4 +24,28 @@
       border="{{ border }}"
     />
   </view>
+
+  <view class="footer">
+    <t-button theme="default" size="medium" variant="text" bindtap="goToCollectPage" icon="star">收藏中心</t-button>
+  </view>
+
+  <t-dialog
+    visible="{{showCollectDialog}}"
+    title="输入网格的名字"
+    content="如：恒生ETF(159920)"
+    confirm-btn="确定"
+    cancel-btn="取消"
+    bind:confirm="onCollect"
+    bind:cancel="hideCollectDialogHandle"
+  >
+    <t-input
+      borderless
+      class="dialog-input"
+      clearable
+      slot="content"
+      placeholder="输入网格的名字"
+      placeholder-class="placeholder"
+      bindchange="onCollectNameChange"
+    />
+  </t-dialog>
 </view>

@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <block wx:for="{{collectList}}" wx:key="collectName">
+    <t-swipe-cell right="{{right}}">
+      <t-cell title="{{item.collectName}}" arrow="{{true}}" data-index="{{index}}" bindclick="goToDetail" />
+    </t-swipe-cell>
+  </block>
+</view>

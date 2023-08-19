@@ -5,6 +5,7 @@
     "t-button": "tdesign-miniprogram/button/button",
     "table": "miniprogram-table-component",
     "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
-    "t-radio": "tdesign-miniprogram/radio/radio"
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog"
   }
 }

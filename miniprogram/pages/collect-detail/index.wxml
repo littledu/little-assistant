@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="collect-title">
+    {{collectName}}
+  </view>
+  <table
+      headers="{{tableHeader}}" 
+      data="{{tableData}}" 
+      stripe="{{ stripe }}"
+      border="{{ border }}"
+    />
+</view>

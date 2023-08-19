@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "网格交易详情",
+  "usingComponents": {
+    "table": "miniprogram-table-component"
+  }
+}
